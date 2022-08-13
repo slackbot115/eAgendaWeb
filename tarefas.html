@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      a {
+        text-decoration: none;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script
+      type="module"
+      src="dist/shared/tarefas/gerenciadorDeTarefa.js"
+      defer
+    ></script>
+
+    <script
+      type="module"
+      src="dist/shared/tarefas/tarefa.create.js"
+      defer
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+        const showNavbar = (toggleId, navId, bodyId, headerId) => {
+          const toggle = document.getElementById(toggleId),
+            nav = document.getElementById(navId),
+            bodypd = document.getElementById(bodyId),
+            headerpd = document.getElementById(headerId);
+
+          // Validate that all variables exist
+          if (toggle && nav && bodypd && headerpd) {
+            toggle.addEventListener("click", () => {
+              // show navbar
+              nav.classList.toggle("show");
+              // change icon
+              toggle.classList.toggle("bx-x");
+              // add padding to body
+              bodypd.classList.toggle("body-pd");
+              // add padding to header
+              headerpd.classList.toggle("body-pd");
+            });
+          }
+        };
+
+        showNavbar("header-toggle", "nav-bar", "body-pd", "header");
+
+        /*===== LINK ACTIVE =====*/
+        const linkColor = document.querySelectorAll(".nav_link");
+
+        function colorLink() {
+          if (linkColor) {
+            linkColor.forEach((l) => l.classList.remove("active"));
+            this.classList.add("active");
+          }
+        }
+        linkColor.forEach((l) => l.addEventListener("click", colorLink));
+
+        // Your code to run since DOM is loaded and ready
+      });
+    </script>
+
+    <title>eAgenda Web</title>
+  </head>
+  <body id="body-pd">
+    <header class="header" id="header">
+      <div class="header_toggle">
+        <i class="bx bx-menu" id="header-toggle"></i>
+      </div>
+    </header>
+    <div class="l-navbar" id="nav-bar">
+      <nav class="nav">
+        <div>
+          <a href="index.html" class="nav_logo">
+            <i class="bx bx-layer nav_logo-icon"></i>
+            <span class="nav_logo-name">eAgenda Web</span>
+          </a>
+          <div class="nav_list">
+            <a href="index.html" class="nav_link active">
+              <i class="bx bx-grid-alt nav_icon"></i>
+              <span class="nav_name">Dashboard</span>
+            </a>
+            <a href="tarefas.html" class="nav_link">
+              <i class="bx bx-task nav_icon"></i>
+              <span class="nav_name">Tarefas</span>
+            </a>
+            <a href="#" class="nav_link">
+              <i class="bx bx-user nav_icon"></i>
+              <span class="nav_name">Contatos</span>
+            </a>
+          </div>
+        </div>
+        <a href="#" class="nav_link">
+          <i class="bx bx-log-out nav_icon"></i>
+          <span class="nav_name">Sair</span>
+        </a>
+      </nav>
+    </div>
+    <!--Container Main start-->
+    <div class="height-100 bg-light">
+      <h4>Tarefas</h4>
+      <div class="m-4">
+        <table class="table" id="tabela-tarefas">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Título</th>
+              <th>Prioridade</th>
+              <th>Data de Criação</th>
+              <!-- <th>Data de Conclusão</th> -->
+              <th>Percentual Concluído</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- Button trigger modal -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#inserirTarefaModal"
+      >
+        Inserir uma nova tarefa
+      </button>
+    </div>
+
+    <!-- Modal Inserção -->
+    <div
+      class="modal fade"
+      id="inserirTarefaModal"
+      aria-labelledby="inserirTarefaModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="rendered-form">
+              <div class="formbuilder-text form-group field-txtTitulo">
+                <label for="txtTitulo" class="formbuilder-text-label"
+                  >Título:<span class="formbuilder-required">*</span></label
+                >
+                <input
+                  type="text"
+                  placeholder="Insira aqui o título da tarefa..."
+                  class="form-control"
+                  name="txtTitulo"
+                  access="false"
+                  id="txtTitulo"
+                  required="required"
+                  aria-required="true"
+                />
+              </div>
+              <div
+                class="formbuilder-radio-group form-group field-radioPrioridade"
+              >
+                <label
+                  for="radioPrioridade"
+                  class="formbuilder-radio-group-label"
+                  >Prioridade:
+                </label>
+                <div class="radio-group">
+                  <div class="formbuilder-radio">
+                    <input
+                      name="radioPrioridade"
+                      access="false"
+                      id="radioPrioridade-0"
+                      value="Alta"
+                      type="radio"
+                    />
+                    <label for="radioPrioridade-0">Alta</label>
+                  </div>
+                  <div class="formbuilder-radio">
+                    <input
+                      name="radioPrioridade"
+                      access="false"
+                      id="radioPrioridade-1"
+                      value="Média"
+                      type="radio"
+                    />
+                    <label for="radioPrioridade-1">Média</label>
+                  </div>
+                  <div class="formbuilder-radio">
+                    <input
+                      name="radioPrioridade"
+                      access="false"
+                      id="radioPrioridade-2"
+                      value="Baixa"
+                      type="radio"
+                      checked="checked"
+                    />
+                    <label for="radioPrioridade-2">Baixa</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              id="btnCancelar"
+            >
+              Cancelar
+            </button>
+            <button type="button" id="btnGravar" class="btn btn-primary">
+              Gravar Registro
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fim Modal Inserção-->
+
+    <!-- Modal Edição -->
+    <div
+      class="modal fade"
+      id="editarTarefaModal"
+      aria-labelledby="editarTarefaModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="rendered-form">
+              <div class="formbuilder-text form-group field-txtTitulo">
+                <label for="txtTitulo" class="formbuilder-text-label"
+                  >Título:<span class="formbuilder-required">*</span></label
+                >
+                <input
+                  type="text"
+                  placeholder="Insira aqui o título da tarefa..."
+                  class="form-control"
+                  name="txtTituloEdicao"
+                  access="false"
+                  id="txtTituloEdicao"
+                  required="required"
+                  aria-required="true"
+                />
+              </div>
+              <div
+                class="formbuilder-radio-group form-group field-radioPrioridade"
+              >
+                <label
+                  for="radioPrioridade"
+                  class="formbuilder-radio-group-label"
+                  >Prioridade:
+                </label>
+                <div class="radio-group">
+                  <div class="formbuilder-radio">
+                    <input
+                      name="radioPrioridade"
+                      access="false"
+                      id="radioPrioridadeAlta"
+                      value="Alta"
+                      type="radio"
+                    />
+                    <label for="radioPrioridadeAlta">Alta</label>
+                  </div>
+                  <div class="formbuilder-radio">
+                    <input
+                      name="radioPrioridade"
+                      access="false"
+                      id="radioPrioridadeMedia"
+                      value="Média"
+                      type="radio"
+                    />
+                    <label for="radioPrioridadeMedia">Média</label>
+                  </div>
+                  <div class="formbuilder-radio">
+                    <input
+                      name="radioPrioridade"
+                      access="false"
+                      id="radioPrioridadeBaixa"
+                      value="Baixa"
+                      type="radio"
+                      checked="checked"
+                    />
+                    <label for="radioPrioridadeBaixa">Baixa</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              id="btnCancelar"
+            >
+              Cancelar
+            </button>
+            <button type="button" id="btnEditar" class="btn btn-primary">
+              Editar Registro
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fim Modal Edição -->
+  </body>
+</html>
