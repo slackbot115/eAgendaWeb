@@ -14,6 +14,8 @@ class GerenciadorDeTarefa implements IPaginaHTML, IPaginaListagem {
   radioPrioridadeMedia: HTMLInputElement;
   radioPrioridadeBaixa: HTMLInputElement;
 
+  tarefaSelecionada: Tarefa;
+
   tarefas: Tarefa[];
 
   constructor(private repositorioTarefas: IRepositorio<Tarefa>) {
@@ -71,17 +73,17 @@ class GerenciadorDeTarefa implements IPaginaHTML, IPaginaListagem {
       };
 
       this.btnEditarModal.onclick = (_evt) => {
-        tarefa.id = tarefa.titulo = this.txtTituloModalEditar.value;
+        this.tarefaSelecionada.titulo = this.txtTituloModalEditar.value;
 
         if (this.radioPrioridadeAlta.checked) {
-          tarefa.prioridade = Prioridade.Alta;
+          this.tarefaSelecionada.prioridade = Prioridade.Alta;
         } else if (this.radioPrioridadeMedia.checked) {
-          tarefa.prioridade = Prioridade.Media;
+          this.tarefaSelecionada.prioridade = Prioridade.Media;
         } else if (this.radioPrioridadeBaixa.checked) {
-          tarefa.prioridade = Prioridade.Baixa;
+          this.tarefaSelecionada.prioridade = Prioridade.Baixa;
         }
 
-        this.repositorioTarefas.editar(tarefa);
+        this.repositorioTarefas.editar(this.tarefaSelecionada);
 
         location.reload();
       };
@@ -96,7 +98,6 @@ class GerenciadorDeTarefa implements IPaginaHTML, IPaginaListagem {
 
   carregarTarefaEdicao(tarefa: Tarefa) {
     this.txtTituloModalEditar.value = tarefa.titulo;
-    // this.txtTituloModalEditar.innerText = tarefa.titulo;
 
     if (tarefa.prioridade == "Alta") {
       this.radioPrioridadeAlta.setAttribute("checked", "true");
@@ -105,6 +106,8 @@ class GerenciadorDeTarefa implements IPaginaHTML, IPaginaListagem {
     } else if (tarefa.prioridade == "Baixa") {
       this.radioPrioridadeBaixa.setAttribute("checked", "true");
     }
+
+    this.tarefaSelecionada = tarefa;
   }
 
   removerTarefa(tarefa: Tarefa) {
