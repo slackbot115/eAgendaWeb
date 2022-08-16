@@ -39,6 +39,18 @@ export class TarefaRepositoryLocalStorage
     this.gravar();
   }
 
+  excluir(registro: Tarefa): void {
+    let tarefaIndex = this.tarefas.findIndex(function (tarefa) {
+      return tarefa.id == registro.id;
+    });
+
+    if (tarefaIndex > -1) {
+      this.tarefas.splice(tarefaIndex, 1);
+    }
+
+    this.gravar();
+  }
+
   public selecionarTodos(): Tarefa[] {
     const dados = this.localStorage.getItem("tarefas");
 

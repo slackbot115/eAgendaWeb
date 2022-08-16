@@ -337,5 +337,45 @@
       </div>
     </div>
     <!-- Fim Modal Edição -->
+
+    <!-- Modal Exclusão -->
+    <div
+      class="modal fade"
+      id="excluirTarefaModal"
+      aria-labelledby="excluirTarefaModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="rendered-form">
+              <h2>Deseja realmente excluir a Tarefa?</h2>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              id="btnCancelar"
+            >
+              Cancelar
+            </button>
+            <button type="button" id="btnExcluir" class="btn btn-primary">
+              Excluir Registro
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fim Modal Exclusão -->
   </body>
 </html>

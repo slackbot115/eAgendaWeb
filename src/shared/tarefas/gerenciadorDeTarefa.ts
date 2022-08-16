@@ -8,6 +8,7 @@ import { TarefaRepositoryLocalStorage } from "./tarefa.repository.local-storage.
 class GerenciadorDeTarefa implements IPaginaHTML, IPaginaListagem {
   tbTarefa: HTMLTableElement;
   btnEditarModal: HTMLButtonElement;
+  btnExcluirModal: HTMLButtonElement;
 
   txtTituloModalEditar: HTMLInputElement;
   radioPrioridadeAlta: HTMLInputElement;
@@ -47,6 +48,10 @@ class GerenciadorDeTarefa implements IPaginaHTML, IPaginaListagem {
     this.radioPrioridadeBaixa = document.getElementById(
       "radioPrioridadeBaixa"
     ) as HTMLInputElement;
+
+    this.btnExcluirModal = document.getElementById(
+      "btnExcluir"
+    ) as HTMLButtonElement;
   }
 
   atualizarTabela(): void {
@@ -69,7 +74,7 @@ class GerenciadorDeTarefa implements IPaginaHTML, IPaginaListagem {
       iconEditar.setAttribute("data-bs-toggle", "modal");
       iconEditar.setAttribute("data-bs-target", "#editarTarefaModal");
       iconEditar.onclick = (_evt) => {
-        this.carregarTarefaEdicao(tarefa);
+        this.carregarTarefa(tarefa);
       };
 
       this.btnEditarModal.onclick = (_evt) => {
@@ -88,15 +93,28 @@ class GerenciadorDeTarefa implements IPaginaHTML, IPaginaListagem {
         location.reload();
       };
 
+      novaLinha.appendChild(iconEditar);
+
       var iconExcluir = document.createElement("button");
       iconExcluir.innerHTML = '<i class="bx bx-trash"></i>';
 
-      novaLinha.appendChild(iconEditar);
+      iconExcluir.setAttribute("data-bs-toggle", "modal");
+      iconExcluir.setAttribute("data-bs-target", "#excluirTarefaModal");
+      iconExcluir.onclick = (_evt) => {
+        this.carregarTarefa(tarefa);
+      };
+
+      this.btnExcluirModal.onclick = (_evt) => {
+        this.repositorioTarefas.excluir(this.tarefaSelecionada);
+
+        location.reload();
+      };
+
       novaLinha.appendChild(iconExcluir);
     });
   }
 
-  carregarTarefaEdicao(tarefa: Tarefa) {
+  carregarTarefa(tarefa: Tarefa) {
     this.txtTituloModalEditar.value = tarefa.titulo;
 
     if (tarefa.prioridade == "Alta") {
@@ -108,13 +126,6 @@ class GerenciadorDeTarefa implements IPaginaHTML, IPaginaListagem {
     }
 
     this.tarefaSelecionada = tarefa;
-  }
-
-  removerTarefa(tarefa: Tarefa) {
-    let tarefaIndex = this.tarefas.findIndex((t) => t === tarefa);
-    if (tarefaIndex > -1) {
-      this.tarefas.splice(tarefaIndex, 1);
-    }
   }
 }
 
