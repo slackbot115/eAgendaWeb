@@ -24,13 +24,13 @@
 
     <script
       type="module"
-      src="dist/shared/tarefas/gerenciadorDeTarefa.js"
+      src="dist/shared/contatos/gerenciadorDeContato.js"
       defer
     ></script>
 
     <script
       type="module"
-      src="dist/shared/tarefas/tarefa.create.js"
+      src="dist/shared/contatos/contato.create.js"
       defer
     ></script>
 
@@ -117,17 +117,17 @@
     </div>
     <!--Container Main start-->
     <div class="height-100 bg-light">
-      <h4>Tarefas</h4>
+      <h4>Contatos</h4>
       <div class="m-4">
-        <table class="table" id="tabela-tarefas">
+        <table class="table" id="tabela-contatos">
           <thead>
             <tr>
               <th>Id</th>
-              <th>Título</th>
-              <th>Prioridade</th>
-              <th>Data de Criação</th>
-              <!-- <th>Data de Conclusão</th> -->
-              <th>Percentual Concluído</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Telefone</th>
+              <th>Empresa</th>
+              <th>Cargo</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -140,17 +140,17 @@
         type="button"
         class="btn btn-primary"
         data-bs-toggle="modal"
-        data-bs-target="#inserirTarefaModal"
+        data-bs-target="#inserirContatoModal"
       >
-        Inserir uma nova tarefa
+        Inserir um novo contato
       </button>
     </div>
 
     <!-- Modal Inserção -->
     <div
       class="modal fade"
-      id="inserirTarefaModal"
-      aria-labelledby="inserirTarefaModalLabel"
+      id="inserirContatoModal"
+      aria-labelledby="inserirContatoModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered">
@@ -165,62 +165,80 @@
           </div>
           <div class="modal-body">
             <div class="rendered-form">
-              <div class="formbuilder-text form-group field-txtTitulo">
-                <label for="txtTitulo" class="formbuilder-text-label"
-                  >Título:<span class="formbuilder-required">*</span></label
+              <div class="formbuilder-text form-group field-txtNome">
+                <label for="txtNome" class="formbuilder-text-label"
+                  >Nome:<span class="formbuilder-required">*</span></label
                 >
                 <input
                   type="text"
-                  placeholder="Insira aqui o título da tarefa..."
+                  placeholder="Insira aqui o nome do contato..."
                   class="form-control"
-                  name="txtTitulo"
+                  name="txtNome"
                   access="false"
-                  id="txtTitulo"
+                  id="txtNome"
                   required="required"
                   aria-required="true"
                 />
               </div>
-              <div
-                class="formbuilder-radio-group form-group field-radioPrioridade"
-              >
-                <label
-                  for="radioPrioridade"
-                  class="formbuilder-radio-group-label"
-                  >Prioridade:
-                </label>
-                <div class="radio-group">
-                  <div class="formbuilder-radio">
-                    <input
-                      name="radioPrioridade"
-                      access="false"
-                      id="radioPrioridade-0"
-                      value="Alta"
-                      type="radio"
-                    />
-                    <label for="radioPrioridade-0">Alta</label>
-                  </div>
-                  <div class="formbuilder-radio">
-                    <input
-                      name="radioPrioridade"
-                      access="false"
-                      id="radioPrioridade-1"
-                      value="Média"
-                      type="radio"
-                    />
-                    <label for="radioPrioridade-1">Média</label>
-                  </div>
-                  <div class="formbuilder-radio">
-                    <input
-                      name="radioPrioridade"
-                      access="false"
-                      id="radioPrioridade-2"
-                      value="Baixa"
-                      type="radio"
-                      checked="checked"
-                    />
-                    <label for="radioPrioridade-2">Baixa</label>
-                  </div>
-                </div>
+              <div class="formbuilder-text form-group field-txtEmail">
+                <label for="txtEmail" class="formbuilder-text-label"
+                  >Email:<span class="formbuilder-required">*</span></label
+                >
+                <input
+                  type="email"
+                  placeholder="Insira aqui o email do contato..."
+                  class="form-control"
+                  name="txtEmail"
+                  access="false"
+                  id="txtEmail"
+                  required="required"
+                  aria-required="true"
+                />
+              </div>
+              <div class="formbuilder-text form-group field-txtTelefone">
+                <label for="txtTelefone" class="formbuilder-text-label"
+                  >Telefone:<span class="formbuilder-required">*</span></label
+                >
+                <input
+                  type="tel"
+                  placeholder="Insira aqui o telefone do contato..."
+                  class="form-control"
+                  name="txtTelefone"
+                  access="false"
+                  id="txtTelefone"
+                  required="required"
+                  aria-required="true"
+                />
+              </div>
+              <div class="formbuilder-text form-group field-txtEmpresa">
+                <label for="txtEmpresa" class="formbuilder-text-label"
+                  >Empresa:<span class="formbuilder-required">*</span></label
+                >
+                <input
+                  type="text"
+                  placeholder="Insira aqui o empresa do contato..."
+                  class="form-control"
+                  name="txtEmpresa"
+                  access="false"
+                  id="txtEmpresa"
+                  required="required"
+                  aria-required="true"
+                />
+              </div>
+              <div class="formbuilder-text form-group field-txtCargo">
+                <label for="txtCargo" class="formbuilder-text-label"
+                  >Cargo:<span class="formbuilder-required">*</span></label
+                >
+                <input
+                  type="text"
+                  placeholder="Insira aqui o cargo do contato..."
+                  class="form-control"
+                  name="txtCargo"
+                  access="false"
+                  id="txtCargo"
+                  required="required"
+                  aria-required="true"
+                />
               </div>
             </div>
           </div>
@@ -245,8 +263,8 @@
     <!-- Modal Edição -->
     <div
       class="modal fade"
-      id="editarTarefaModal"
-      aria-labelledby="editarTarefaModalLabel"
+      id="editarContatoModal"
+      aria-labelledby="editarContatoModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered">
@@ -261,62 +279,80 @@
           </div>
           <div class="modal-body">
             <div class="rendered-form">
-              <div class="formbuilder-text form-group field-txtTitulo">
-                <label for="txtTitulo" class="formbuilder-text-label"
-                  >Título:<span class="formbuilder-required">*</span></label
+              <div class="formbuilder-text form-group field-txtNome">
+                <label for="txtNome" class="formbuilder-text-label"
+                  >Nome:<span class="formbuilder-required">*</span></label
                 >
                 <input
                   type="text"
-                  placeholder="Insira aqui o título da tarefa..."
+                  placeholder="Insira aqui o nome do contato..."
                   class="form-control"
-                  name="txtTituloEdicao"
+                  name="txtNomeEdicao"
                   access="false"
-                  id="txtTituloEdicao"
+                  id="txtNomeEdicao"
                   required="required"
                   aria-required="true"
                 />
               </div>
-              <div
-                class="formbuilder-radio-group form-group field-radioPrioridade"
-              >
-                <label
-                  for="radioPrioridade"
-                  class="formbuilder-radio-group-label"
-                  >Prioridade:
-                </label>
-                <div class="radio-group">
-                  <div class="formbuilder-radio">
-                    <input
-                      name="radioPrioridade"
-                      access="false"
-                      id="radioPrioridadeAlta"
-                      value="Alta"
-                      type="radio"
-                    />
-                    <label for="radioPrioridadeAlta">Alta</label>
-                  </div>
-                  <div class="formbuilder-radio">
-                    <input
-                      name="radioPrioridade"
-                      access="false"
-                      id="radioPrioridadeMedia"
-                      value="Média"
-                      type="radio"
-                    />
-                    <label for="radioPrioridadeMedia">Média</label>
-                  </div>
-                  <div class="formbuilder-radio">
-                    <input
-                      name="radioPrioridade"
-                      access="false"
-                      id="radioPrioridadeBaixa"
-                      value="Baixa"
-                      type="radio"
-                      checked="checked"
-                    />
-                    <label for="radioPrioridadeBaixa">Baixa</label>
-                  </div>
-                </div>
+              <div class="formbuilder-text form-group field-txtEmail">
+                <label for="txtEmail" class="formbuilder-text-label"
+                  >Email:<span class="formbuilder-required">*</span></label
+                >
+                <input
+                  type="text"
+                  placeholder="Insira aqui o email do contato..."
+                  class="form-control"
+                  name="txtEmailEdicao"
+                  access="false"
+                  id="txtEmailEdicao"
+                  required="required"
+                  aria-required="true"
+                />
+              </div>
+              <div class="formbuilder-text form-group field-txtTelefone">
+                <label for="txtTelefone" class="formbuilder-text-label"
+                  >Telefone:<span class="formbuilder-required">*</span></label
+                >
+                <input
+                  type="text"
+                  placeholder="Insira aqui o telefone do contato..."
+                  class="form-control"
+                  name="txtTelefoneEdicao"
+                  access="false"
+                  id="txtTelefoneEdicao"
+                  required="required"
+                  aria-required="true"
+                />
+              </div>
+              <div class="formbuilder-text form-group field-txtEmpresa">
+                <label for="txtEmpresa" class="formbuilder-text-label"
+                  >Empresa:<span class="formbuilder-required">*</span></label
+                >
+                <input
+                  type="text"
+                  placeholder="Insira aqui o empresa do contato..."
+                  class="form-control"
+                  name="txtEmpresaEdicao"
+                  access="false"
+                  id="txtEmpresaEdicao"
+                  required="required"
+                  aria-required="true"
+                />
+              </div>
+              <div class="formbuilder-text form-group field-txtCargo">
+                <label for="txtCargo" class="formbuilder-text-label"
+                  >Cargo:<span class="formbuilder-required">*</span></label
+                >
+                <input
+                  type="text"
+                  placeholder="Insira aqui o cargo do contato..."
+                  class="form-control"
+                  name="txtCargoEdicao"
+                  access="false"
+                  id="txtCargoEdicao"
+                  required="required"
+                  aria-required="true"
+                />
               </div>
             </div>
           </div>
@@ -341,8 +377,8 @@
     <!-- Modal Exclusão -->
     <div
       class="modal fade"
-      id="excluirTarefaModal"
-      aria-labelledby="excluirTarefaModalLabel"
+      id="excluirContatoModal"
+      aria-labelledby="excluirContatoModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered">
@@ -357,7 +393,7 @@
           </div>
           <div class="modal-body">
             <div class="rendered-form">
-              <h2>Deseja realmente excluir a Tarefa?</h2>
+              <h2>Deseja realmente excluir o Contato?</h2>
             </div>
           </div>
           <div class="modal-footer">
